@@ -1,0 +1,65 @@
+# https://taskfile.dev/
+version: '3'
+
+vars:
+  GO_PACKAGES:
+    sh: go list ./...
+
+tasks:
+  default:
+    cmds:
+      - task: run
+
+  run:
+    desc: run tinytexonfly
+    cmds:
+      - task: build
+      - ./tinytexonfly{{.EXE_EXT}}
+    vars:
+      EXE_EXT: '{{if eq OS "windows"}}.exe{{else}}{{end}}'
+
+  build:
+    desc: build only
+    cmds:
+      - task: generate
+      - task: fmt
+      - go build
+
+  fmt:
+    desc: go fmt
+    cmds:
+      - go fmt
+
+  generate:
+    desc: go generate
+    cmds:
+      - go generate
+
+  mod:
+    desc: Downloads and tidy Go modules
+    cmds:
+      - go mod download
+      - go mod tidy
+
+  lint:
+    desc: Runs golint
+    cmds:
+      - task: fmt
+      - golint {{catLines .GO_PACKAGES}}
+
+  test:
+    desc: Runs test suite
+    cmds:
+      - task: fmt
+      - go test {{catLines .GO_PACKAGES}}
+
+  ci:
+    desc: run CI things
+    cmds:
+      - task: lint
+      - task: test
+
+  packages:
+    cmds:
+      - echo '{{.GO_PACKAGES}}'
+    silent: true
