@@ -2,6 +2,7 @@
 version: '3'
 
 vars:
+  BINARY: tinytexonfly
   GO_PACKAGES:
     sh: go list ./...
 
@@ -11,17 +12,17 @@ tasks:
       - task: run
 
   run:
-    desc: run tinytexonfly
+    desc: run this
     cmds:
       - task: build
-      - ./tinytexonfly{{.EXE_EXT}}
+      - ./BINARY{{.EXE_EXT}}
     vars:
       EXE_EXT: '{{if eq OS "windows"}}.exe{{else}}{{end}}'
 
   build:
     desc: build only
     cmds:
-      - task: generate
+      - task: gen
       - task: fmt
       - go build
 
@@ -30,7 +31,7 @@ tasks:
     cmds:
       - go fmt
 
-  generate:
+  gen:
     desc: go generate
     cmds:
       - go generate
@@ -42,10 +43,10 @@ tasks:
       - go mod tidy
 
   lint:
-    desc: Runs golint
+    desc: golangci-lint
     cmds:
       - task: fmt
-      - golint {{catLines .GO_PACKAGES}}
+      - golangci-lint run
 
   test:
     desc: Runs test suite
