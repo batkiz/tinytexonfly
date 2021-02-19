@@ -1,5 +1,10 @@
 # TinyTeX on the fly
 
+[![test](https://github.com/batkiz/tinytexonfly/actions/workflows/test.yml/badge.svg)](https://github.com/batkiz/tinytexonfly/actions/workflows/test.yml)
+[![goreleaser](https://github.com/batkiz/tinytexonfly/actions/workflows/release.yml/badge.svg)](https://github.com/batkiz/tinytexonfly/actions/workflows/release.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/batkiz/tinytexonfly.svg)](https://pkg.go.dev/github.com/batkiz/tinytexonfly)
+[![GitHub license](https://img.shields.io/github/license/batkiz/tinytexonfly)](https://github.com/batkiz/tinytexonfly/blob/main/LICENSE)
+
 用途是自动化 TinyTeX 的装包过程（虽然现在主要在用 tectonic）。
 
 实现非常脏，所以并不是所有的包都会被识别到，可能还需要自己去看报错找没安装的包。
