@@ -20,11 +20,12 @@ func ReadPath(path string) string {
 	var files []string
 	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
-			// 仅读取文件类型为 tex, dtx, cls 的文件
+			// 仅读取文件类型为 tex, dtx, cls, sty 的文件
 			switch filepath.Ext(info.Name()) {
-			case "tex",
-				"dtx",
-				"cls":
+			case ".tex",
+				".dtx",
+				".sty",
+				".cls":
 				files = append(files, path)
 			}
 		}
