@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// ExecTlmgrInstall execute the `tlmgr install <packages>` command
 // TODO: really executing the command
 func ExecTlmgrInstall(packages map[string]bool) error {
 	if len(packages) == 0 {

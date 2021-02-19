@@ -15,8 +15,8 @@ func main() {
 		Usage:   "Auto install LaTeX packages for TinyTex",
 		Authors: []*cli.Author{
 			{
-				"batkiz",
-				"i@batkiz.com",
+				Name:  "batkiz",
+				Email: "i@batkiz.com",
 			},
 		},
 		Action: func(c *cli.Context) error {
@@ -44,8 +44,6 @@ func main() {
 				execute(s)
 				return nil
 			}
-
-			return nil
 		},
 	}
 

@@ -12,6 +12,7 @@ import (
 //go:embed data.txt
 var Files string
 
+// GetPackages returns all the packages need to install
 func GetPackages(p map[string]bool) map[string]bool {
 	// load *database*
 	list := strings.Split(Files, "\n")
@@ -50,6 +51,7 @@ func GetPackages(p map[string]bool) map[string]bool {
 	return packages
 }
 
+// GetInstalledPackages 获得本地已经安装了的包
 func GetInstalledPackages() map[string]bool {
 	output, err := exec.Command(
 		"tlmgr",
@@ -63,7 +65,7 @@ func GetInstalledPackages() map[string]bool {
 		log.Fatal(err)
 	}
 
-	// if on windows
+	// if on windows, `\r\n` should be converted to `\n`
 	s := strings.ReplaceAll(string(output), "\r\n", "\n")
 	packages := make(map[string]bool)
 
@@ -75,11 +77,11 @@ func GetInstalledPackages() map[string]bool {
 	return packages
 }
 
+// notPackages is a *blacklist* for packages
+// need time to collect
 func notPackages() []string {
-	// need time to collect
-	n := []string{
+	return []string{
 		"config",
 		"tools",
 	}
-	return n
 }
