@@ -81,6 +81,7 @@ func GetInstalledPackages() map[string]bool {
 // need time to collect
 func notPackages() []string {
 	return []string{
+		"base",
 		"config",
 		"tools",
 	}

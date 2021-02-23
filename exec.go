@@ -16,6 +16,7 @@ func ExecTlmgrInstall(packages map[string]bool) error {
 		list += k + " "
 	}
 
+	fmt.Println("tlmgr update -all --self")
 	fmt.Printf("tlmgr install %v\n", list)
 	/*
 		out, err := exec.Command("tlmgr", "install", stringArrayToString(packages)).Output()
