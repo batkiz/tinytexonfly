@@ -45,6 +45,18 @@ func main() {
 				return nil
 			}
 		},
+		Commands: []*cli.Command{
+			{
+				Name:    "search",
+				Aliases: []string{"s"},
+				Usage:   "search file globally through the database",
+				Action: func(c *cli.Context) error {
+					file := c.Args().Get(0)
+					Search(file)
+					return nil
+				},
+			},
+		},
 	}
 
 	err := app.Run(os.Args)
