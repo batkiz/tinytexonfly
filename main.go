@@ -1,17 +1,21 @@
 package main
 
 import (
+	_ "embed"
 	"log"
 	"os"
 
 	"github.com/urfave/cli/v2"
 )
 
+//go:embed VERSION
+var VERSION string
+
 //go:generate go run data/data.go
 func main() {
 	app := &cli.App{
 		Name:    "tinytexonfly",
-		Version: "0.1.0",
+		Version: VERSION,
 		Usage:   "Auto install LaTeX packages for TinyTex",
 		Authors: []*cli.Author{
 			{
