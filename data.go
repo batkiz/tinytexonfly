@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"log"
+	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
@@ -48,6 +49,10 @@ func GetPackages(p map[string]bool) map[string]bool {
 		delete(packages, p)
 	}
 
+	for k := range getLocalStyFiles(".") {
+		delete(packages, k)
+	}
+
 	return packages
 }
 
@@ -85,4 +90,22 @@ func notPackages() []string {
 		"config",
 		"tools",
 	}
+}
+
+func getLocalStyFiles(path string) map[string]bool {
+	files := map[string]bool{}
+	err := filepath.Walk(path, func(path string, info os.FileInfo, err error) error {
+		if !info.IsDir() {
+			if filepath.Ext(info.Name()) == ".sty" {
+				name := strings.TrimSuffix(info.Name(), filepath.Ext(info.Name()))
+				files[name] = true
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		log.Println(err)
+	}
+
+	return files
 }
